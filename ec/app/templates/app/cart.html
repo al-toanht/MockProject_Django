@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+    <!-- Navbar End -->
+    {% block content %}
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">CART</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Cart</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+        <!-- Checkout Start -->
+    <div class="container {% if cart_context %} bg-secondary {% endif %}">
+        {% if not cart_context %}
+        <div class="snlrc5 --3Iu+">
+                <div class="+2nxRQ"></div>
+                <div class="zH4psk">Giỏ hàng của bạn còn trống</div>
+                <a class="OpSzHa" href="/"><button class="shopee-button-solid shopee-button-solid--primary">
+                    <span class="_3Vjf2+">MUA NGAY</span>
+                </button></a>
+            </div>
+        {% else %}
+        <form method='POST'>
+         {% csrf_token %}
+         {% if messages %}
+         <ul class="messages">
+             {% for message in messages %}
+                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+             {% endfor %}
+         </ul>
+        {% endif %}
+        <div class="if-swd">
+            <div class="topMain">
+                <div class="mcsiKT"><label class="stardust-checkbox" name="checkAll"><input class="stardust-checkbox__input" type="checkbox" name="checkAll"><div class="stardust-checkbox__box"></div></label></div>
+                <div class="topMain--product">
+                    Sản phẩm
+                </div>
+                <div class="topMain--unit_price">
+                    Đơn giá
+                </div>
+                <div class="topMain--quantity">
+                    Số lượng
+                </div>
+                <div class="topMain--price">
+                    Giá
+                </div>
+                <div class="topMain--operation">
+                    Thao tác
+                </div>
+            </div>
+            {% for item in cart_context  %}
+                <div class="main-cart">
+                    <div class="main-cart__list-product">
+                        <div class="main-cart__list-product-details">
+                            <div class="GODVSY VPZ9zs">
+                                <div class="zoXdNN">
+                                    <div class="lgcEHJ">
+                                        <label class="stardust-checkbox" id="labelCheck{{ item.id }}">
+                                            <input class="stardust-checkbox__input" type="checkbox" id="cart{{ item.id }}" name="itemCart" data-url="{{ item.id }}" value="{{ item.id }}">
+                                            <div class="stardust-checkbox__box"></div>
+                                        </label>
+                                    </div>
+
+                                    <div class="main-cart__list-product-details-title">
+                                        <div class="LAQKxn">
+                                            <a href="">
+                                                <div class="WanNdG" style="background-image: url({{ item.product.product_image.url }});"></div>
+                                            </a>
+                                            <div class="TyNN8t">
+                                                <a class="JB57cn" title="{{item.product.title}}" href="{% url 'product-detail' item.product.id %}">
+                                                    {{item.product.title}}
+                                                </a>
+                                                <div class="+P9QGd">Phân loại: {{ item.color }} {{ item.size }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o7pJBk"></div>
+                                    <div class="G7E4B7">
+                                        <div>
+                                            <span class="M-AAFK vWt6ZL">₫{{item.product.selling_price}}</span>
+                                            <span class="M-AAFK">₫{{item.product.discount_price}}</span>
+                                            <input type="hidden" id="discount_price{{item.id}}" value="{{item.product.discount_price}}" data-url="{{ item.id }}">
+                                        </div>
+                                    </div>
+                                    <div class="MRh9G6">
+                                        <div class="JDE8X0 shopee-input-quantity">
+                                            <button class="h3W3pR decrease-quantity" data-url="{{item.id}}">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon">
+                                                    <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                                                </svg>
+                                            </button>
+                                            <input class="h3W3pR ts9OWN numeric-input quantity-input" type="text" name="quantityItem{{item.id}}" id="quantity{{item.id}}" aria-valuenow="1" value="{{item.quantity}}" data-url="{{item.id}}">
+
+                                            <button class="h3W3pR increase-quantity" data-url="{{item.id}}" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon icon-plus-sign">
+                                                    <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="ofQLuG">
+                                        <span id="priceLabel{{item.id}}">₫{{ item.total_cost}}</span>
+                                        <input type="hidden" class="totalPrice" id="price{{ item.id }}" name="price{{ item.id }}" value="{{ item.total_cost}}" data-url="{{item.id}}">
+                                    </div>
+                                    <div class="mhcjog _0p-F-m">
+                                        <button class="fX1Y2g remove-from-cart" data-cart-id="{{ item.id }}" data-remove-url="{% url 'remove_from_cart' %}">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="rnocow">
+                <div class="s1Gxkq c2pfrq">
+                    <div class="wqjloc">
+                        <label class="stardust-checkbox" name="checkAll">
+                        <input class="stardust-checkbox__input" type="checkbox" name="checkAll">
+                        <div class="stardust-checkbox__box"></div>
+                    </label>
+                </div>
+                <button class="iGlIrs clear-btn-style" id="buttonAll">Chọn Tất Cả ({{ cart_context.count }})</button>
+                <button class="clear-btn-style ukPYq9">Xóa</button>
+                <div class="UlxAss"></div>
+                <div class="UQv8V6"><div class="fyYBP1"><div class="aiyQAr"><div class="A-CcKC" id="numProduct">Tổng thanh toán (0 Sản phẩm):</div>
+                <div class="WC0us+" id="totalPrice">₫0</div></div></div><div class="onR5FG"></div></div>
+                <input type="hidden" name="totalPrice" value='0'>
+                <button class="shopee-button-solid shopee-button-solid--primary" type="submit"><span class="TTXpRG">Mua hàng</span></button>
+            </div>  
+        </div>
+    </form>
+
+        </div>
+        {% endif %}
+    </div>
+    <!-- Checkout End -->
+    {% endblock %}     
+
+    {% block js %}
+    <script src="{% static 'js/cart.js' %}"></script>
+    {% endblock %}             
+
+

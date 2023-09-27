@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    {% load bootstrap5 %}
+    {% load static %}
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <div style='width: 26rem'>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="text-center mb-3">
+                      <p>Sign in with:</p>
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                      </button>
+              
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                      </button>
+              
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                      </button>
+              
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                      </button>
+                    </div>
+              
+                    <p class="text-center">or:</p>
+                    {% if messages %}
+                    <ul class="messages bg-danger">
+                      {% for message in messages %}
+                      <li>{{ message }}</li>
+                      {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                      <input type="text" id="loginName" class="form-control" name='loginName' />
+                      <label class="form-label" for="loginName">Email or username</label>
+                    </div>
+              
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <input type="password" id="password" class="form-control" name='password'/>
+                      <label class="form-label" for="password">Password</label>
+                    </div>
+              
+                    <!-- 2 column grid layout -->
+                    <div class="row mb-4">
+                      <div class="col-md-6 d-flex justify-content-center">
+                        <!-- Checkbox -->
+                        <div class="form-check mb-3 mb-md-0">
+                          <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                          <label class="form-check-label" for="loginCheck"> Remember me </label>
+                        </div>
+                      </div>
+              
+                      <div class="col-md-6 d-flex justify-content-center">
+                        <!-- Simple link -->
+                        <a href="#!">Forgot password?</a>
+                      </div>
+                    </div>
+              
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary w-100 mb-4" id="login-button">Sign in</button>
+              
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                      <p>Not a member? <a href="{% url 'register' %}">Register</a></p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+    </section>
+ 
+    
+</body>
+
+</html>

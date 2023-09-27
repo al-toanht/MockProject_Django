@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Register</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    {% load bootstrap5 %}
+    {% load static %}
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <div style='width: 26rem'>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="text-center mb-3">
+                      <p>Sign up with:</p>
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                      </button>
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                      </button>
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                      </button>
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                      </button>
+                    </div>
+              
+                    <p class="text-center">or:</p>
+                    {% for field in form %}
+                      {% if field.errors %}
+                        {% for error in field.errors  %}
+                          <p class="alert alert-danger my-3">{{ error }}</p>
+                        {% endfor %}
+                      {% endif %}
+                    <div class="form-outline mb-4">
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary w-100 btn-block mb-3">Sign in</button>
+                  </form>
+                </div>
+              </div>
+          </div>
+    </section>
+ 
+    
+</body>
+
+</html>
